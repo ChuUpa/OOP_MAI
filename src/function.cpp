@@ -24,7 +24,7 @@ std::string translator(int a){
     else {
         // std::cout << tens[b - 1] << " " << units[c] << std::endl;
         std::ostringstream result;
-        result << tens[b - 1] << " " << units[c] << std::endl;
+        result << tens[b - 1] << " " << units[c];
 
         return result.str();
     }
