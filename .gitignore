@@ -31,4 +31,18 @@
 *.out
 *.app
 
+# VS Code settings
 .vscode/
+
+# CMake generated files
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+
+# Build directory
+/build/
+
+# OS generated files
+.DS_Store
+Thumbs.db
