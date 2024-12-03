@@ -24,7 +24,7 @@ cleanup() {
     exit $EXIT_CODE
 }
 trap cleanup EXIT
-
+ 
 
 echo "Installing CMake..."
 apt-get -y purge --auto-remove cmake

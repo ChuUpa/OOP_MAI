@@ -2,8 +2,8 @@
 
 BUILD_DIR = build
 
-MAIN_EXEC = main_lab3
-TEST_EXEC = tests_lab3
+MAIN_EXEC = main_lab4
+TEST_EXEC = tests_lab4
 
 CMAKE = cmake
 MAKE = make
