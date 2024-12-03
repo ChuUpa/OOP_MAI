@@ -3,10 +3,16 @@
 
 #include "Figure.hpp"
 #include "Point.hpp"
+#include <memory>
+#include <iostream>
+#include <stdexcept>
 
-class Rectangle : public Figure
+template <Numeric T>
+class Rectangle : public Figure<T>
 {
 public:
+    using figure_base_type = T;
+    
     Rectangle() = default;
     Rectangle(const Point (&points)[4]);
     Rectangle(const Rectangle &other);
@@ -26,9 +32,11 @@ public:
     void read(std::istream& is) override;
 
 private:
-    Point points_[4];
+    std::unique_ptr<Point<T>> points_[4];
     
     bool isValidRectangle() const;
 };
+
+#include "../src/Pentagon.tpp"
 
 #endif // Rectangle_HPP

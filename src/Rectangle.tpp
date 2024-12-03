@@ -1,8 +1,13 @@
-#include "Rectangle.hpp"
+#ifndef RECTANGLE_TPP
+#define RECTANGLE_TPP
+
+#include "../include/Rectangle.hpp"
 #include <cmath>
 #include <iostream>
+#include <stdexcept>
 
-Rectangle::Rectangle(const Point (&points)[4])
+template <Numeric T>
+Pentagon<T>::Rectangle(const Point<T> (&points)[4])
 {
     for (int i = 0; i < 4; ++i) {
         points_[i] = points[i];

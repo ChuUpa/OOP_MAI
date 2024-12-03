@@ -3,22 +3,27 @@
 
 #include "Figure.hpp"
 #include "Point.hpp"
+#include <memory>
+#include <iostream>
+#include <stdexcept>
 
-class Trapezoid : public Figure
-{
+template <Numeric T>
+class Trapezoid : public Figure<T> {
 public:
-    Trapezoid() = default;
-    Trapezoid(const Point (&points)[4]);
-    Trapezoid(const Trapezoid &other);
-
-    Trapezoid& operator=(const Trapezoid &other);
-    Trapezoid& operator=(Trapezoid &&other) noexcept;
+    using figure_base_type = T;
     
-    Point geometricCenter() const override;
-    operator double() const override;
-    bool operator==(const Figure &other) const override;
+    Trapezoid() = default;
+    Trapezoid(const Point<T> (&points)[4]);
+    Trapezoid(const Trapezoid<T> &other);
 
-    virtual Figure* clone() const override {
+    Trapezoid& operator=(const Trapezoid<T> &other);
+    Trapezoid& operator=(Trapezoid<T> &&other) noexcept;
+    
+    Point<T> geometricCenter() const override;
+    operator double() const override;
+    bool operator==(const Figure<T> &other) const override;
+
+    virtual Figure<T>* clone() const override {
         return new Trapezoid(*this);
     }
 
@@ -26,9 +31,11 @@ public:
     void read(std::istream& is) override;
 
 private:
-    Point points_[4];
+    std::unique_ptr<Point<T>> points_[4];
 
     bool isValidTrapezoid() const;
 };
+
+#include "../src/Trapezoid.tpp"
 
 #endif // TRAPEZOID_HPP

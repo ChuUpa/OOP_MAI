@@ -1,1 +1,1 @@
-# MAI-OOP-Labs
+# MAI

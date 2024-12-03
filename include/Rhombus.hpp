@@ -3,23 +3,29 @@
 
 #include "Figure.hpp"
 #include "Point.hpp"
+#include <memory>
+#include <iostream>
+#include <stdexcept>
 
-class Rhombus : public Figure
+template <Numeric T>
+class Rhombus : public Figure<T> {
 {
 public:
+    using figure_base_type = T;
+    
     Rhombus() = default;
-    Rhombus(const Point (&points)[4]);
-    Rhombus(const Rhombus &other);
+    Rhombus(const Point<T> (&points)[4]);
+    Rhombus(const Rhombus<T> &other);
 
-    Rhombus &operator=(const Rhombus &other);
-    Rhombus &operator=(Rhombus &&other) noexcept;
+    Rhombus &operator=(const Rhombus<T> &other);
+    Rhombus &operator=(Rhombus<T> &&other) noexcept;
 
-    Point geometricCenter() const override;
-    double distance(const Point &p1, const Point &p2) const;
+    Point<T> geometricCenter() const override;
+    double distance(const Point<T> &p1, const Point<T> &p2) const;
     operator double() const override;
-    bool operator==(const Figure &other) const override;
+    bool operator==(const Figure<T> &other) const override;
 
-    virtual Figure* clone() const override {
+    virtual Figure<T>* clone() const override {
         return new Rhombus(*this);
     }
 
@@ -27,9 +33,11 @@ public:
     void read(std::istream& is) override;
 
 private:
-    Point points_[4];
+    std::unique_ptr<Point<T>> points_[4];
 
     bool isValidRhombus() const;
 };
+
+#include "../src/Rhombus.tpp"
 
 #endif // RHOMBUS_HPP

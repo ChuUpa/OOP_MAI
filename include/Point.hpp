@@ -4,33 +4,28 @@
 #include <iostream>
 #include <cmath>
 
+template <class T>
+concept Numeric = std::is_integral_v<T> || std::is_floating_point_v<T>;
+
+template <Numeric T>
 struct Point
 {
-    double x_;
-    double y_;
+    T x_;
+    T y_;
 
     Point() : x_(0), y_(0) {}
-    Point(double x, double y) : x_(x), y_(y) {}
+    Point(T x, T y) : x_(x), y_(y) {}
 
-    friend std::ostream &operator<<(std::ostream& os, const Point &point)
-    {
-        os << "(" << point.x_ << ", " << point.y_ << ")";
-        return os;
-    }
-    friend std::istream &operator>>(std::istream& is, Point &point)
-    {
-        is >> point.x_ >> point.y_;
-        return is;
-    }
-
-    bool operator==(const Point &other) const
-    {
-        return std::abs(x_ - other.x_) < 1e-6 && std::abs(y_ - other.y_) < 1e-6;
-    }
-    bool operator!=(const Point &other) const
-    {
-        return !(*this == other);
-    }
+    bool operator==(const Point<T> &other) const;
+    bool operator!=(const Point<T> &other) const;
 };
+
+template <Numeric T>
+std::ostream &operator<<(std::ostream& os, const Point<T>& point);
+
+template <Numeric T>
+std::istream &operator>>(std::istream& is, Point<T>& point);
+
+#include "../src/Point.tpp"
 
 #endif // POINT_HPP

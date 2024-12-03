@@ -4,6 +4,7 @@
 #include "Point.hpp"
 #include <iostream>
 
+template <Numeric T>
 class Figure
 {
 public:
@@ -18,15 +19,15 @@ public:
     virtual void print(std::ostream& os) const = 0;
     virtual void read(std::istream& is) = 0;
 
-    friend std::ostream& operator<<(std::ostream& os, const Figure &fig) {
-        fig.print(os);
-        return os;
-    }
-    friend std::istream& operator>>(std::istream& is, Figure &fig) {
-        fig.read(is);
-        return is;
-    }
     
 };
+
+template <Numeric T>
+std::ostream& operator<<(std::ostream& os, const Figure<T> &fig);
+
+template <Numeric T>
+std::istream& operator>>(std::istream& is, Figure<T> &fig);
+
+#include "../src/Figure.tpp"
 
 #endif // FIGURE_HPP

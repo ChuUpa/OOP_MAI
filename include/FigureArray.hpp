@@ -3,6 +3,10 @@
 
 #include "Figure.hpp"
 
+template <class T>
+concept IsFigure = std::is_base_of<Figure<double>, T>::value;
+
+template <IsFigure T>
 class FigureArray 
 {
 public:
@@ -22,11 +26,13 @@ public:
     size_t size() const;
 
 private:
-    Figure **figures_;
+    std::unique_ptr<std::shared_ptr<T>[]> figures_;
     size_t size_;
     size_t capacity_;
 
     void resize();
 };
+
+#include "../src/FigureArray.tpp"
 
 #endif // FIGUREARRAY_HPP
