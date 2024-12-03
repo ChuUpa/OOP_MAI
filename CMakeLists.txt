@@ -11,9 +11,9 @@ set(TEST_DIR ${CMAKE_SOURCE_DIR}/tests)
 
 include_directories(${INCLUDE_DIR})
 
-add_executable(main_lab4 ${SOURCE_DIR}/main.cpp)
+add_executable(main_lab5 ${SOURCE_DIR}/main.cpp)
 
-add_executable(tests_lab4 ${TEST_DIR}/test_figure.cpp)
+add_executable(tests_lab5 ${TEST_DIR}/test_figure.cpp)
 
 add_library(Figures STATIC
     ${SOURCE_DIR}/Figure.cpp
@@ -24,11 +24,11 @@ add_library(Figures STATIC
     ${SOURCE_DIR}/Trapezoid.cpp
 )
 
-target_link_libraries(main_lab4 Figures)
+target_link_libraries(main_lab5 Figures)
 
 add_subdirectory(${CMAKE_SOURCE_DIR}/external/googletest googletest)
 
-target_link_libraries(tests_lab3 gtest gtest_main Figures)
+target_link_libraries(tests_lab5 gtest gtest_main Figures)
 
 include(GoogleTest)
-gtest_discover_tests(tests_lab3)
+gtest_discover_tests(tests_lab5)
