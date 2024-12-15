@@ -1,29 +1,48 @@
 #include <iostream>
-#include <string>
-#include "../include/fixed_block_mem_resource.hpp"
-#include <iostream>
-#include "twoway_linked_list.hpp"
+#include "include/DungeonEditor.h"
 
 int main() {
     try {
-        FixedBlockMemoryResource memory_resource(1024 * 1024, sizeof(int) * 4);
-        PmrDoublyLinkedList<int> list(&memory_resource);
-        list.push_back(10);
-        list.push_back(20);
-        list.push_back(30);
+        DungeonEditor editor;
 
-        std::cout << "Список содержит: " << std::endl;
-        for (auto it = list.begin(); it != list.end(); ++it) {
-            std::cout << *it << " ";
-        }
-        std::cout << std::endl;
+        int choice;
+        do {
+            std::cout << "\n--- Dungeon Editor Menu ---\n";
+            std::cout << "1. Add NPC\n";
+            std::cout << "2. Print NPC list\n";
+            std::cout << "3. Save NPCs to file\n";
+            std::cout << "4. Load NPCs from file\n";
+            std::cout << "5. Start combat mode\n";
+            std::cout << "0. Exit\n";
+            std::cout << "Enter your choice: ";
+            std::cin >> choice;
 
-        list.clear();
-        std::cout << "Лист очищен" << std::endl;
-    } catch (const std::bad_alloc& e) {
-        std::cerr << "Ошибка аллокации: " << e.what() << std::endl;
-    } catch (const std::exception& e) {
-        std::cerr << "Ошибка: " << e.what() << std::endl;
+            switch (choice) {
+                case 1:
+                    editor.addNPC();
+                    break;
+                case 2:
+                    editor.printNPCs();
+                    break;
+                case 3:
+                    editor.saveToFile("npc_data.txt");
+                    break;
+                case 4:
+                    editor.loadFromFile("npc_data.txt");
+                    break;
+                case 5:
+                    editor.startCombat();
+                    break;
+                case 0:
+                    std::cout << "Exiting...\n";
+                    break;
+                default:
+                    std::cout << "Invalid choice. Try again.\n";
+            }
+        } while (choice != 0);
+
+    } catch (const std::exception& ex) {
+        std::cerr << "Error: " << ex.what() << std::endl;
     }
 
     return 0;
