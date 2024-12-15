@@ -2,18 +2,18 @@
 #include <iostream>
 #include <fstream>
 
-// Реализация ConsoleLogger
+
 void ConsoleLogger::onEvent(const std::string& event) {
-    std::cout << "ConsoleLogger: " << event << std::endl; // Вывод события в консоль
+    std::cout << "ConsoleLogger: " << event << std::endl; 
 }
 
-// Реализация FileLogger
+
 void FileLogger::onEvent(const std::string& event) {
-    std::ofstream logFile("log.txt", std::ios::app); // Открываем файл в режиме добавления
+    std::ofstream logFile("log.txt", std::ios::app); 
     if (logFile.is_open()) {
-        logFile << "FileLogger: " << event << std::endl; // Записываем событие в файл
-        logFile.close(); // Закрываем файл
+        logFile << "FileLogger: " << event << std::endl; 
+        logFile.close(); 
     } else {
-        std::cerr << "Error: Could not open log file." << std::endl; // Обработка ошибки
+        std::cerr << "Error: Could not open log file." << std::endl; 
     }
 }

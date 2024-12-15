@@ -3,12 +3,12 @@
 #include <fstream>
 #include <sstream>
 
-// Конструктор
+
 DungeonEditor::DungeonEditor() {
-    initializeFactories(); // Инициализация фабрик для NPC
+    initializeFactories(); 
 }
 
-// Инициализация фабрик
+
 void DungeonEditor::initializeFactories() {
     npcFactories["Bear"] = [](const std::string& name, int x, int y) {
         return std::make_shared<Bear>(name, x, y);
@@ -21,7 +21,7 @@ void DungeonEditor::initializeFactories() {
     };
 }
 
-// Добавление NPC
+
 void DungeonEditor::addNPC() {
     std::string type, name;
     int x, y;
@@ -45,18 +45,18 @@ void DungeonEditor::addNPC() {
         return;
     }
 
-    npcs.push_back(factoryIt->second(name, x, y)); // Создаем NPC через фабрику и добавляем в список
+    npcs.push_back(factoryIt->second(name, x, y)); 
     notifyObservers("Added NPC: " + type + " (" + name + ") at (" + std::to_string(x) + ", " + std::to_string(y) + ")");
 }
 
-// Уведомление наблюдателей
+
 void DungeonEditor::notifyObservers(const std::string& event) {
     for (const auto& observer : observers) {
         observer->onEvent(event);
     }
 }
 
-// Печать списка NPC
+
 void DungeonEditor::printNPCs() const {
     if (npcs.empty()) {
         std::cout << "No NPCs in the dungeon." << std::endl;
@@ -69,7 +69,7 @@ void DungeonEditor::printNPCs() const {
     }
 }
 
-// Сохранение NPC в файл
+
 void DungeonEditor::saveToFile(const std::string& filename) const {
     std::ofstream outFile(filename);
     if (!outFile.is_open()) {
@@ -85,7 +85,7 @@ void DungeonEditor::saveToFile(const std::string& filename) const {
     std::cout << "NPCs saved to " << filename << std::endl;
 }
 
-// Загрузка NPC из файла
+
 void DungeonEditor::loadFromFile(const std::string& filename) {
     std::ifstream inFile(filename);
     if (!inFile.is_open()) {
@@ -93,7 +93,7 @@ void DungeonEditor::loadFromFile(const std::string& filename) {
         return;
     }
 
-    npcs.clear(); // Очистка текущего списка NPC
+    npcs.clear(); 
     std::string type, name;
     int x, y;
 
